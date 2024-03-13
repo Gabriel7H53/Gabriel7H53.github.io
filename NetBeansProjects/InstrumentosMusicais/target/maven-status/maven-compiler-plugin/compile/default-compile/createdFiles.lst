@@ -1,0 +1,6 @@
+Entities\Teclado.class
+Entities\Venda.class
+Control\loja_instrumentos_musicais.class
+Entities\enums\Tipo.class
+Entities\Client.class
+Entities\Endereco.class

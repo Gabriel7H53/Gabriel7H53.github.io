@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS servicos;
+
+CREATE TABLE servicos (
+ Sequencial INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ Descricao VARCHAR(50) NOT NULL,
+ Custo VARCHAR(50),
+ Status INT NOT NULL
+);

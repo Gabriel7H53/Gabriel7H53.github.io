@@ -1,0 +1,555 @@
+package interfaces;
+
+import controle.controladorCadastroAvaliacao;
+import entidade.Amigo;
+import entidade.Avaliacao;
+import entidade.Avaliacao.Classificacao;
+import entidade.Filme;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
+public class JanelaCadastroAvaliacoes extends javax.swing.JFrame {
+
+    controladorCadastroAvaliacao controlador;
+    DefaultListModel modelo_lista_avaliacoes;
+    Amigo[] amigos_cadastrados;
+    Filme[] filmes_cadastrados;
+
+    public JanelaCadastroAvaliacoes(controladorCadastroAvaliacao controlador) {
+        this.controlador = controlador;
+        amigos_cadastrados = Amigo.getVisoes();
+        filmes_cadastrados = Filme.getVisoes();
+        initComponents();
+        inicializarListaAvaliacoes();
+        limparCampos(null);
+    }
+
+    private void inicializarListaAvaliacoes() {
+        modelo_lista_avaliacoes = (DefaultListModel) avaliacoes_cadastradasList.getModel();
+        Avaliacao[] visoes = Avaliacao.getVisoes();
+        for (Avaliacao visao : visoes) {
+            modelo_lista_avaliacoes.addElement(visao);
+        }
+    }
+
+    private Avaliacao obtemAvaliacaoInformada() {
+        String sequencial_str = sequencialTextField.getText();
+        int sequencial = 0;
+        if (!sequencial_str.isEmpty()) {
+            sequencial = Integer.parseInt(sequencial_str);
+        }
+        Amigo visao_amigo = (Amigo) amigos_cadastradosComboBox.getSelectedItem();
+        if (visao_amigo == null) {
+            return null;
+        }
+        Filme visao_filme = (Filme) filmes_cadastradosComboBox.getSelectedItem();
+        if (visao_filme == null) {
+            return null;
+        }
+        Avaliacao.Classificacao classificacao_trama = null;
+        if (classificacao_tramaComboBox.getSelectedItem() != null) {
+            classificacao_trama = (Avaliacao.Classificacao) classificacao_tramaComboBox.getSelectedItem();
+        } else {
+            return null;
+        }
+        Avaliacao.Classificacao classificacao_direcao = null;
+        if (classificacao_direcaoComboBox.getSelectedItem() != null) {
+            classificacao_direcao = (Avaliacao.Classificacao) classificacao_direcaoComboBox.getSelectedItem();
+        } else {
+            return null;
+        }
+        Avaliacao.Classificacao classificacao_atuacao = null;
+        if (classificacao_atuacaoComboBox.getSelectedItem() != null) {
+            classificacao_atuacao = (Avaliacao.Classificacao) classificacao_atuacaoComboBox.getSelectedItem();
+        } else {
+            return null;
+        }
+        Avaliacao.Preferencia preferencia = null;
+        if (preferenciaButtonGroup.getSelection() != null) {
+            preferencia = Avaliacao.Preferencia.values()[preferenciaButtonGroup.getSelection().getMnemonic()];
+        }
+        Timestamp data_hora = new Timestamp(Calendar.getInstance().getTimeInMillis());
+        return new Avaliacao(sequencial, visao_amigo, visao_filme, classificacao_trama,
+                classificacao_direcao, classificacao_atuacao, preferencia, data_hora);
+    }
+
+    private void selecionePreferenciaRadioButton(int indice_preferencia) {
+        switch (indice_preferencia) {
+            case 0:
+                dez_melhoresRadioButton.setSelected(true);
+                break;
+            case 1:
+                dez_pioresRadioButton.setSelected(true);
+
+        }
+    }
+    
+    private Filme getVisaoFilmeSelecionado(Avaliacao avaliacao) {
+        String chave_filme = avaliacao.getFilme().getTitulo();
+        for(Filme visao_filme : filmes_cadastrados){
+            if(visao_filme.getTitulo().equals(chave_filme))
+                return visao_filme;
+        }
+        return null;
+    }
+    
+    private Amigo getVisaoAmigoSelecionada(Avaliacao avaliacao){
+        String chave_amigo = avaliacao.getAmigo().getNome();
+        for(Amigo visao_amigo : amigos_cadastrados){
+            if(visao_amigo.getNome().equals(chave_amigo))
+                return visao_amigo;
+        }
+        return null;
+    }
+    
+    private void limparCampos() {
+        sequencialTextField.setText("");
+        amigos_cadastradosComboBox.setSelectedIndex(-1);
+        filmes_cadastradosComboBox.setSelectedIndex(-1);
+        classificacao_tramaComboBox.setSelectedIndex(-1);
+        classificacao_direcaoComboBox.setSelectedIndex(-1);
+        classificacao_atuacaoComboBox.setSelectedIndex(-1);
+        preferenciaButtonGroup.clearSelection();
+        data_horaTextField.setText("");
+   
+    }
+    
+    private void informarErro(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem, "ERRO", JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        preferenciaButtonGroup = new javax.swing.ButtonGroup();
+        avaliacoes_cadastradasLabel = new javax.swing.JLabel();
+        ordem_avaliacaoLabel = new javax.swing.JLabel();
+        amigos_cadastradosLabel = new javax.swing.JLabel();
+        filmes_cadastradosLabel = new javax.swing.JLabel();
+        classificacao_tramaLabel = new javax.swing.JLabel();
+        classificacao_direcaoLabel = new javax.swing.JLabel();
+        classificacao_atuacaoLabel = new javax.swing.JLabel();
+        preferenciaLabel = new javax.swing.JLabel();
+        data_horaLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        avaliacoes_cadastradasList = new javax.swing.JList();
+        sequencialTextField = new javax.swing.JTextField();
+        amigos_cadastradosComboBox = new javax.swing.JComboBox();
+        filmes_cadastradosComboBox = new javax.swing.JComboBox();
+        classificacao_tramaComboBox = new javax.swing.JComboBox<>();
+        classificacao_direcaoComboBox = new javax.swing.JComboBox<>();
+        dez_melhoresRadioButton = new javax.swing.JRadioButton();
+        dez_pioresRadioButton = new javax.swing.JRadioButton();
+        data_horaTextField = new javax.swing.JTextField();
+        classificacao_atuacaoComboBox = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        consultarButton = new javax.swing.JButton();
+        alterarButton = new javax.swing.JButton();
+        removerButton = new javax.swing.JButton();
+        limparCampos = new javax.swing.JButton();
+        inserirButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        avaliacoes_cadastradasLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        avaliacoes_cadastradasLabel.setText("Avaliações Cadastradas");
+
+        ordem_avaliacaoLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ordem_avaliacaoLabel.setText("Ordem da Avaliação");
+
+        amigos_cadastradosLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        amigos_cadastradosLabel.setText("Amigos Cadastrados");
+
+        filmes_cadastradosLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        filmes_cadastradosLabel.setText("Filmes Cadastrados");
+
+        classificacao_tramaLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        classificacao_tramaLabel.setText("Classificação da Trama");
+
+        classificacao_direcaoLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        classificacao_direcaoLabel.setText("Classificação da Direção");
+
+        classificacao_atuacaoLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        classificacao_atuacaoLabel.setText("Classificação da Atuação");
+
+        preferenciaLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        preferenciaLabel.setText("Preferência");
+
+        data_horaLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        data_horaLabel.setText("Data e Hora");
+
+        avaliacoes_cadastradasList.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        avaliacoes_cadastradasList.setModel(new DefaultListModel()
+        );
+        jScrollPane1.setViewportView(avaliacoes_cadastradasList);
+
+        sequencialTextField.setEditable(false);
+        sequencialTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        sequencialTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sequencialTextFieldActionPerformed(evt);
+            }
+        });
+
+        amigos_cadastradosComboBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        amigos_cadastradosComboBox.setModel(new DefaultComboBoxModel(amigos_cadastrados));
+
+        filmes_cadastradosComboBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        filmes_cadastradosComboBox.setModel(new DefaultComboBoxModel(filmes_cadastrados));
+
+        classificacao_tramaComboBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        classificacao_tramaComboBox.setModel(new DefaultComboBoxModel (Classificacao.values()));
+
+        classificacao_direcaoComboBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        classificacao_direcaoComboBox.setModel(new DefaultComboBoxModel (Classificacao.values())
+        );
+
+        preferenciaButtonGroup.add(dez_melhoresRadioButton);
+        dez_melhoresRadioButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        dez_melhoresRadioButton.setText("10 Melhores");
+        dez_melhoresRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dez_melhoresRadioButtonActionPerformed(evt);
+            }
+        });
+
+        preferenciaButtonGroup.add(dez_pioresRadioButton);
+        dez_pioresRadioButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        dez_pioresRadioButton.setMnemonic('\u0001');
+        dez_pioresRadioButton.setSelected(true);
+        dez_pioresRadioButton.setText("10 Piores");
+
+        data_horaTextField.setEditable(false);
+        data_horaTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        classificacao_atuacaoComboBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        classificacao_atuacaoComboBox.setModel(new DefaultComboBoxModel (Classificacao.values()));
+
+        consultarButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        consultarButton.setText("Consultar");
+        consultarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarAvaliacao(evt);
+            }
+        });
+
+        alterarButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        alterarButton.setText("Alterar");
+        alterarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarAvaliacao(evt);
+            }
+        });
+
+        removerButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        removerButton.setText("Remover");
+        removerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerAvaliacao(evt);
+            }
+        });
+
+        limparCampos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        limparCampos.setText("Limpar");
+        limparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparCampos(evt);
+            }
+        });
+
+        inserirButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        inserirButton.setText("Inserir");
+        inserirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirAvaliacao(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(inserirButton)
+                .addGap(18, 18, 18)
+                .addComponent(consultarButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(alterarButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(removerButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(limparCampos)
+                .addGap(0, 89, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(consultarButton)
+                    .addComponent(alterarButton)
+                    .addComponent(removerButton)
+                    .addComponent(limparCampos)
+                    .addComponent(inserirButton))
+                .addGap(0, 13, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(avaliacoes_cadastradasLabel)
+                            .addComponent(ordem_avaliacaoLabel)
+                            .addComponent(amigos_cadastradosLabel)
+                            .addComponent(filmes_cadastradosLabel)
+                            .addComponent(classificacao_tramaLabel)
+                            .addComponent(classificacao_direcaoLabel))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(sequencialTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(classificacao_tramaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(classificacao_direcaoComboBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(amigos_cadastradosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(filmes_cadastradosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(437, 437, 437))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(classificacao_atuacaoLabel)
+                            .addComponent(preferenciaLabel)
+                            .addComponent(data_horaLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(data_horaTextField)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(classificacao_atuacaoComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(dez_melhoresRadioButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(dez_pioresRadioButton))))))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(avaliacoes_cadastradasLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ordem_avaliacaoLabel)
+                            .addComponent(sequencialTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(amigos_cadastradosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(amigos_cadastradosLabel))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filmes_cadastradosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filmes_cadastradosLabel))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(classificacao_tramaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(classificacao_tramaLabel))
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(classificacao_direcaoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(classificacao_direcaoLabel))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(classificacao_atuacaoLabel)
+                    .addComponent(classificacao_atuacaoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dez_melhoresRadioButton)
+                    .addComponent(dez_pioresRadioButton)
+                    .addComponent(preferenciaLabel))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(data_horaLabel)
+                    .addComponent(data_horaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void sequencialTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sequencialTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sequencialTextFieldActionPerformed
+
+    private void consultarAvaliacao(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarAvaliacao
+        Avaliacao visao_avaliacao = (Avaliacao) avaliacoes_cadastradasList.getSelectedValue();
+        Avaliacao avaliacao = null;
+        String mensagem_erro = null;
+        if (visao_avaliacao != null) {
+            avaliacao = Avaliacao.buscarAvaliacao(visao_avaliacao.getSequencial());
+            if (avaliacao == null) {
+                mensagem_erro = "Avaliação Não Cadastrada";
+            }
+        } else {
+            mensagem_erro = "Nenhuma avaliação selecionada";
+        }
+        if (mensagem_erro == null) {
+            sequencialTextField.setText(avaliacao.getSequencial() + "");
+            amigos_cadastradosComboBox.setSelectedItem(getVisaoAmigoSelecionada(avaliacao));
+            filmes_cadastradosComboBox.setSelectedItem(getVisaoFilmeSelecionado(avaliacao));
+            classificacao_tramaComboBox.setSelectedItem(avaliacao.getClassificacaoTrama());
+            classificacao_direcaoComboBox.setSelectedItem(avaliacao.getClassificacaoDirecao());
+            classificacao_atuacaoComboBox.setSelectedItem(avaliacao.getClassificacaoAtuacao());
+            selecionePreferenciaRadioButton(avaliacao.getPreferencia().ordinal());
+            data_horaTextField.setText(Avaliacao.formatarDataHora(avaliacao.getDataHora().toString()));
+        } else {
+            informarErro(mensagem_erro);
+        }
+    }//GEN-LAST:event_consultarAvaliacao
+
+    private void alterarAvaliacao(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarAvaliacao
+        Avaliacao avaliacao = obtemAvaliacaoInformada();
+        String mensagem_erro = null;
+        if (avaliacao != null) {
+            mensagem_erro = controlador.alterarAvaliacao(avaliacao);
+        } else {
+            mensagem_erro = "algum atributo avaliacao n informado";
+        }
+        if (mensagem_erro != null) {
+            informarErro(mensagem_erro);
+        }
+    }//GEN-LAST:event_alterarAvaliacao
+
+    private void removerAvaliacao(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerAvaliacao
+        Avaliacao visão = (Avaliacao) avaliacoes_cadastradasList.getSelectedValue();
+        String mensagem_erro = null;
+        if (visão != null) {
+            mensagem_erro = controlador.removerAvaliacao(visão.getSequencial());
+        } else {
+            mensagem_erro = "Nenhuma Avaliação selecionado";
+        }
+        if (mensagem_erro == null) {
+            modelo_lista_avaliacoes.removeElement(visão);
+        } else {
+            informarErro(mensagem_erro);
+        }
+    }//GEN-LAST:event_removerAvaliacao
+
+    private void limparCampos(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparCampos
+        limparCampos();
+    }//GEN-LAST:event_limparCampos
+
+    private void inserirAvaliacao(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirAvaliacao
+        Avaliacao avaliacao = obtemAvaliacaoInformada();
+        String mensagem_erro = null;
+        if (avaliacao != null) {
+            mensagem_erro = controlador.inserirAvalicao(avaliacao);
+        } else {
+            mensagem_erro = "Algum atributo da avaliacao nao foi informado";
+        }
+        if (mensagem_erro == null) {
+            int sequencial = Avaliacao.ultimoSequencial();
+            avaliacao.setSequencial(sequencial);
+            modelo_lista_avaliacoes.addElement(avaliacao.getVisao());
+            avaliacoes_cadastradasList.setSelectedIndex(modelo_lista_avaliacoes.size() - 1);
+            sequencialTextField.setText("" + sequencial);
+            data_horaTextField.setText(Avaliacao.formatarDataHora(avaliacao.getDataHora().toString()));
+        } else {
+            informarErro(mensagem_erro);
+        }
+    }//GEN-LAST:event_inserirAvaliacao
+
+    private void dez_melhoresRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dez_melhoresRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dez_melhoresRadioButtonActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(JanelaCadastroAvaliacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JanelaCadastroAvaliacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JanelaCadastroAvaliacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JanelaCadastroAvaliacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                //new JanelaCadastroAvaliacoes().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton alterarButton;
+    private javax.swing.JComboBox amigos_cadastradosComboBox;
+    private javax.swing.JLabel amigos_cadastradosLabel;
+    private javax.swing.JLabel avaliacoes_cadastradasLabel;
+    private javax.swing.JList avaliacoes_cadastradasList;
+    private javax.swing.JComboBox<String> classificacao_atuacaoComboBox;
+    private javax.swing.JLabel classificacao_atuacaoLabel;
+    private javax.swing.JComboBox<String> classificacao_direcaoComboBox;
+    private javax.swing.JLabel classificacao_direcaoLabel;
+    private javax.swing.JComboBox<String> classificacao_tramaComboBox;
+    private javax.swing.JLabel classificacao_tramaLabel;
+    private javax.swing.JButton consultarButton;
+    private javax.swing.JLabel data_horaLabel;
+    private javax.swing.JTextField data_horaTextField;
+    private javax.swing.JRadioButton dez_melhoresRadioButton;
+    private javax.swing.JRadioButton dez_pioresRadioButton;
+    private javax.swing.JComboBox filmes_cadastradosComboBox;
+    private javax.swing.JLabel filmes_cadastradosLabel;
+    private javax.swing.JButton inserirButton;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton limparCampos;
+    private javax.swing.JLabel ordem_avaliacaoLabel;
+    private javax.swing.ButtonGroup preferenciaButtonGroup;
+    private javax.swing.JLabel preferenciaLabel;
+    private javax.swing.JButton removerButton;
+    private javax.swing.JTextField sequencialTextField;
+    // End of variables declaration//GEN-END:variables
+}
