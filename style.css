@@ -1,0 +1,391 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: "Fira Sans";
+}
+header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  margin: 0 30px 0 30px;
+}
+
+.logo {
+  font-size: 2.5rem;
+}
+
+.nav-items {
+  list-style: none;
+  display: flex;
+  justify-content: end;
+}
+
+.nav-items li a {
+  text-decoration: none;
+  padding: 30px;
+  color: black;
+  font-size: 23px;
+}
+.escrita1 {
+  margin-left: 50px;
+  position: relative;
+}
+
+.h2 {
+  font-size: 75px;
+}
+.p {
+  font-size: 30px;
+  color: #3c3c3c;
+}
+
+.conteudo1 {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 370px auto;
+  margin: 0 30px 0 30px;
+}
+
+.h2::after {
+  content: "";
+  background-color: green;
+  display: block;
+  width: 130px;
+  height: 25px;
+  position: absolute;
+  left: -50px;
+  top: 90px;
+  transform: rotate(135deg);
+  z-index: -1;
+}
+
+.h2::before {
+  content: "";
+  background-color: greenyellow;
+  display: block;
+  width: 130px;
+  height: 25px;
+  position: absolute;
+  left: -15px;
+  top: 90px;
+  transform: rotate(135deg);
+z-index: -1;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.experiencia {
+  font-size: 120px;
+}
+
+.conteudo2 {
+  /* background-color: blue; */
+  display: grid;
+  grid-template-columns: 400px auto;
+  color: #b5b5b5;
+  margin: 0 30px 0 30px;
+}
+
+.texto {
+  font-size: 25px;
+  margin-top: 90px;
+  color: #b5b5b5;
+}
+
+.black {
+  color: black;
+  font-weight: 500;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+}
+
+#unic::after {
+  content: "";
+  background-color: greenyellow;
+  display: block;
+  width: 5px;
+  height: 24px;
+  position: absolute;
+  left: -5px;
+  top: 40px;
+}
+
+#unic::before {
+  content: "2045";
+  color: #3c3c3c;
+  display: block;
+  position: absolute;
+  left: -60px;
+  top: 41px;
+  font-size: 18px;
+}
+
+#unico2::after {
+  content: "";
+  background-color: greenyellow;
+  display: block;
+  width: 5px;
+  height: 24px;
+  position: absolute;
+  left: -5px;
+  top: 230px;
+}
+
+#unico2::before {
+  content: "2045-47";
+  color: #3c3c3c;
+  display: block;
+  position: absolute;
+  left: -80px;
+  top: 230px;
+  font-size: 18px;
+}
+
+#unic3::after {
+  content: "";
+  background-color: greenyellow;
+  display: block;
+  width: 5px;
+  height: 24px;
+  position: absolute;
+  left: -5px;
+  top: 420px;
+}
+
+#unic3::before {
+  content: "2044";
+  color: #3c3c3c;
+  display: block;
+  position: absolute;
+  left: -60px;
+  top: 420px;
+  font-size: 18px;
+}
+
+.one {
+  background-color: #dcdcdc;
+  margin-top: 1.2rem;
+  min-height: 169.75px;
+}
+
+.titulo {
+  color: black;
+  margin-left: 1rem;
+  margin-block-start: 1em;
+  margin-block-end: 0em;
+}
+#sm {
+  margin-left: 0px;
+}
+
+.desc {
+  font-size: 1rem;
+  margin-left: 1rem;
+  color: #3c3c3c;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding-inline-start: 0px;
+}
+
+.list li {
+  margin-right: 16px;
+  background-color: white;
+  color: black;
+}
+
+.conteudo3 {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 380px auto;
+  background-color: #1f1f1f;
+  height: 800px;
+}
+
+.formacao {
+  font-size: 140px;
+  margin-left: 30px;
+  color: #000000;
+}
+
+.row1 {
+  margin-left: 120px;
+  margin-top: 120px;
+  color: #8b8b8b;
+}
+.row2 {
+  margin-left: 50px;
+  margin-top: 37px;
+  display: grid;
+  grid-template-columns: 270px 270px 270px;
+  justify-content: space-evenly;
+}
+.row3 {
+  margin-left: 120px;
+}
+.row4 {
+  margin-left: 120px;
+}
+
+.white {
+  color: white;
+  font-weight: 500;
+}
+
+.grey {
+  color: #8b8b8b;
+  position: relative;
+}
+
+.bacharel {
+  position: relative;
+  background-color: #000000;
+  border-radius: 4px;
+  padding-left: 1rem;
+}
+
+.tecnologo {
+  position: relative;
+  background-color: #000000;
+  border-radius: 4px;
+  padding-left: 1rem;
+}
+
+.mestre {
+  position: relative;
+  background-color: #000000;
+  border-radius: 4px;
+  padding-left: 1rem;
+}
+
+.row3,
+.row4 {
+  margin-top: 50px;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: black;
+  width: auto;
+  height: 440px;
+  position: relative;
+}
+
+.detail2::after {
+  content: "";
+  background-color: greenyellow;
+  display: block;
+  width: 130px;
+  height: 20px;
+  position: absolute;
+  left: 65px;
+  top: -5px;
+  transform: rotate(135deg);
+}
+
+.detail2::before {
+  content: "";
+  background-color: green;
+  display: block;
+  width: 130px;
+  height: 20px;
+  position: absolute;
+  left: 37px;
+  top: -5px;
+  transform: rotate(135deg);
+}
+
+.informacoes {
+  font-size: 1.6rem;
+  margin-left: 1.3rem;
+  margin-top: 7.5rem;
+  color: #b5b5b5;
+}
+
+.direitos {
+  margin-left: 1.3rem;
+  margin-top: 10rem;
+  color: #8b8b8b;
+}
+
+.info-contato {
+  color: white;
+  font-weight: 700;
+  font-size: 2.2rem;
+  margin-top: 3rem;
+}
+
+.ctt {
+  color: white;
+}
+
+#cursos-img::after {
+  content: url(img/cursos.svg);
+  display: block; /* Para que a imagem apareça em uma linha separada */
+  width: 25px; /* Ajuste o tamanho da imagem conforme necessário */
+  height: 25px;
+  position: absolute;
+  top: -1.8px;
+  left: -30px;
+}
+
+#idiomas-img::after {
+  content: url(img/idiomas.svg);
+  display: block;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: -1.8px;
+  left: -30px;
+}
+
+p .white {
+  position: relative;
+}
+
+#new::after {
+  content: "";
+  background-color: greenyellow;
+  display: block;
+  width: 5px;
+  height: 20px;
+  position: absolute;
+  left: -5px;
+  top: 20px;
+}
+
+#new1::after {
+  content: "";
+  background-color: greenyellow;
+  display: block;
+  width: 5px;
+  height: 20px;
+  position: absolute;
+  left: -5px;
+  top: 20px;
+}
+
+#new2::after {
+  content: "";
+  background-color: greenyellow;
+  display: block;
+  width: 5px;
+  height: 20px;
+  position: absolute;
+  left: -5px;
+  top: 20px;
+}
