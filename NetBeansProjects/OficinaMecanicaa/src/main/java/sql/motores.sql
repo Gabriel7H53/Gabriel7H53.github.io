@@ -1,9 +1,0 @@
-DROP TABLE IF EXISTS motores;
-
-CREATE TABLE motores (
- Sequencial INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
- Nome VARCHAR(50) NOT NULL,
- Modelo VARCHAR(50),
- NumeroSerie VARCHAR(50) NOT NULL,
- Fabricante INT NOT NULL
-);
